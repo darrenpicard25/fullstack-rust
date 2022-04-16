@@ -1,35 +1,36 @@
 use yew::prelude::*;
+use yew_router::prelude::*;
 
-#[function_component]
-fn App() -> Html {
-    let counter = use_state(|| 0);
+mod pages;
 
-    let increase = {
-        let counter = counter.clone();
-        move |_| {
-            let value = *counter + 1;
-            counter.set(value);
-        }
-    };
+use pages::{HelloServer, Home};
 
-    let decrease = {
-        let counter = counter.clone();
-        move |_| {
-            let value = *counter - 1;
-            counter.set(value);
-        }
-    };
+#[derive(Clone, Routable, PartialEq)]
+pub enum Route {
+    #[at("/")]
+    Home,
+    #[at("/hello-server")]
+    HelloServer,
+}
 
+fn switch(routes: &Route) -> Html {
+    match routes {
+        Route::Home => html! { <Home /> },
+        Route::HelloServer => html! { <HelloServer /> },
+    }
+}
+
+#[function_component(App)]
+fn app() -> Html {
     html! {
-        <div>
-            <h1>{"Counter Frontend"}</h1>
-            <button onclick={increase}>{ "+1" }</button>
-            <button onclick={decrease}>{ "-1" }</button>
-            <p>{ *counter }</p>
-        </div>
+        <BrowserRouter>
+            <Switch<Route> render={Switch::render(switch)} />
+        </BrowserRouter>
     }
 }
 
 fn main() {
-    yew::Renderer::<App>::new().render();
+    wasm_logger::init(wasm_logger::Config::new(log::Level::Trace));
+    console_error_panic_hook::set_once();
+    yew::start_app::<App>();
 }
