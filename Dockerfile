@@ -18,6 +18,6 @@ COPY --from=build /usr/src/fullstackrust/dist /usr/local/bin/dist
 
 WORKDIR /usr/local/bin
 
-EXPOSE 8080
+EXPOSE 80
 
 ENTRYPOINT [ "backend" ]
