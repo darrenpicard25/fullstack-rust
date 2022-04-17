@@ -17,6 +17,7 @@ fn switch(routes: &Route) -> Html {
     match routes {
         Route::Home => html! { <Home /> },
         Route::HelloServer => html! { <HelloServer /> },
+        _ => html! { <h1>{"404 Not found"}</h1>},
     }
 }
 

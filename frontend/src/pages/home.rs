@@ -17,7 +17,7 @@ pub fn home() -> Html {
 
     html! {
         <>
-            <div>{"Hello from Yew"}</div>
+            <div>{"Hello from Yew. On the new fully updated version of the app with CI/CD"}</div>
             {go_to_hello}
         </>
     }
