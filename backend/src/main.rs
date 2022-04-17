@@ -18,7 +18,7 @@ struct Opt {
     #[clap(short = 'l', long = "log", default_value = "debug")]
     log_level: String,
     /// set the listen addr
-    #[clap(short = 'a', long = "addr", default_value = "::1")]
+    #[clap(short = 'a', long = "addr", default_value = "0.0.0.0")]
     addr: String,
 
     /// set the listen port
@@ -26,7 +26,7 @@ struct Opt {
     port: u16,
 
     /// set the directory where static files are to be found
-    #[clap(long = "static-dir", default_value = "../dist")]
+    #[clap(long = "static-dir", default_value = "./dist")]
     static_dir: String,
 }
 
@@ -47,6 +47,7 @@ async fn main() {
                 Ok(res) => match res.status() {
                     StatusCode::NOT_FOUND => {
                         let index_path = PathBuf::from(&opt.static_dir).join("index.html");
+                        log::info!("Index Path: {:?}", index_path);
                         let index_content = match fs::read_to_string(index_path).await {
                             Err(_) => {
                                 return Response::builder()
