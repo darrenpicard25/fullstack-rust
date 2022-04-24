@@ -11,6 +11,8 @@ pub enum Route {
     Home,
     #[at("/hello-server")]
     HelloServer,
+    #[at("/error")]
+    Error,
 }
 
 fn switch(routes: &Route) -> Html {
