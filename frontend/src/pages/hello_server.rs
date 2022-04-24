@@ -10,13 +10,7 @@ pub fn hello_server() -> Html {
     let data = use_state(|| None);
     let history = use_history().unwrap();
 
-    let go_to_home = {
-        let history = history.clone();
-        let onclick = Callback::once(move |_| history.push(Route::Home));
-        html! {
-            <button {onclick}>{"click to go hello"}</button>
-        }
-    };
+    let onclick = Callback::once(move |_| history.push(Route::Home));
 
     // Request `/api/hello` once
     {
@@ -48,24 +42,24 @@ pub fn hello_server() -> Html {
         None => {
             html! {
                 <>
-                <div>{"No server response"}</div>
-                {go_to_home}
+                    <div>{"No server response"}</div>
+                    <button {onclick}>{"click to go hello"}</button>
                 </>
             }
         }
         Some(Ok(data)) => {
             html! {
                 <>
-                <div>{"Got server response: "}{data}</div>
-                {go_to_home}
+                    <div>{"Got server response: "}{data}</div>
+                    <button {onclick}>{"click to go hello"}</button>
                 </>
             }
         }
         Some(Err(err)) => {
             html! {
                 <>
-                <div>{"Error requesting data from server: "}{err}</div>
-                {go_to_home}
+                    <div>{"Error requesting data from server: "}{err}</div>
+                    <button {onclick}>{"click to go hello"}</button>
                 </>
             }
         }

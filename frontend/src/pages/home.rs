@@ -7,18 +7,12 @@ use crate::Route;
 pub fn home() -> Html {
     let history = use_history().unwrap();
 
-    let go_to_hello = {
-        let history = history.clone();
-        let onclick = Callback::once(move |_| history.push(Route::HelloServer));
-        html! {
-            <button {onclick}>{"click to go hello"}</button>
-        }
-    };
+    let onclick = Callback::once(move |_| history.push(Route::HelloServer));
 
     html! {
         <>
             <div>{"Hello from Yew. this is the real deal"}</div>
-            {go_to_hello}
+            <button {onclick}>{"click to go hello"}</button>
         </>
     }
 }

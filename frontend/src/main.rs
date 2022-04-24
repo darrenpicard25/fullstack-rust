@@ -3,7 +3,7 @@ use yew_router::prelude::*;
 
 mod pages;
 
-use pages::{HelloServer, Home};
+use pages::{Error, HelloServer, Home};
 
 #[derive(Clone, Routable, PartialEq)]
 pub enum Route {
@@ -19,7 +19,7 @@ fn switch(routes: &Route) -> Html {
     match routes {
         Route::Home => html! { <Home /> },
         Route::HelloServer => html! { <HelloServer /> },
-        _ => html! { <h1>{"404 Not found"}</h1>},
+        _ => html! { <Error />},
     }
 }
 
